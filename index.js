@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchData();
 });
 
+let allRecords = []; // Bewaar de originele records voor sorteren
+let currentSort = { column: null, ascending: true }; // Houd de sorteervolgorde bij
+
 // Haal data op van de API
 async function fetchData() {
     try {
@@ -13,11 +16,11 @@ async function fetchData() {
         }
 
         const data = await response.json();
-        console.log("Opgehaalde data:", data); // Debugging: check de data in console
+        console.log("Opgehaalde data:", data); // Debugging
 
         if (data.results && data.results.length > 0) {
-            displayData(data.results);
-            allRecords = data.results;  // Opslaan van alle records voor later zoeken
+            allRecords = data.results;
+            displayData(allRecords);
         } else {
             console.warn("Geen records gevonden in de API-response!");
         }
@@ -31,17 +34,15 @@ function displayData(records) {
     const tableBody = document.getElementById("locationsTable");
 
     if (!tableBody) {
-        console.error("Tabel-body niet gevonden! Controleer of de ID correct is.");
+        console.error("Tabel-body niet gevonden!");
         return;
     }
 
-    // Leeg de tabel voordat je nieuwe rijen toevoegt
-    tableBody.innerHTML = '';
+    tableBody.innerHTML = ''; // Tabel resetten
 
     records.forEach(item => {
         const row = document.createElement("tr");
 
-        // Vul de tabel met de juiste gegevens uit de API response
         row.innerHTML = `
             <td>${item.adres_nl || "Onbekend"}</td>
             <td>Drinkfontein</td>
@@ -57,39 +58,71 @@ function displayData(records) {
     });
 }
 
-// Voeg event listener toe voor het zoeken
-const searchBtn = document.getElementById('searchBtn');
-searchBtn.addEventListener('click', () => {
-    const searchTerm = document.getElementById('search').value.toLowerCase();
-    filterData(searchTerm);
+// Voeg event listeners toe aan de zoekknop en inputveld
+document.getElementById('searchBtn').addEventListener('click', () => {
+    filterData(document.getElementById('search').value.toLowerCase());
 });
 
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('keydown', (event) => {
-    if(event.key !== 'Enter') return;
-    const searchTerm = document.getElementById('search').value.toLowerCase();
-    filterData(searchTerm);
-})
+document.getElementById('search').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        filterData(event.target.value.toLowerCase());
+    }
+});
 
-// Filter de data op basis van zoekterm
+// Filter functie
 function filterData(searchTerm) {
-    const filteredRecords = allRecords.filter(item => {
-        // Zoek naar de zoekterm in verschillende velden (adres, postcode, gemeente, etc.)
-        const matchesSearch = 
-            (item.adres_nl?.toLowerCase().includes(searchTerm) || false) ||
-            (item.code_postal?.toLowerCase().includes(searchTerm) || false) ||
-            (item.gemeente?.toLowerCase().includes(searchTerm) || false) ||
-            (item.adresse_fr?.toLowerCase().includes(searchTerm) || false); // Franse adres ook controleren
+    const filteredRecords = allRecords.filter(item => 
+        (item.adres_nl?.toLowerCase().includes(searchTerm) || false) ||
+        (item.code_postal?.toLowerCase().includes(searchTerm) || false) ||
+        (item.gemeente?.toLowerCase().includes(searchTerm) || false) ||
+        (item.adresse_fr?.toLowerCase().includes(searchTerm) || false)
+    );
 
-        return matchesSearch;
-    });
-
-    // Gegevens opnieuw weergeven in de tabel
     displayData(filteredRecords);
 }
 
-// Voeg event listener toe voor het wisselen van thema
-const themeToggleBtn = document.getElementById('themeToggle');
-themeToggleBtn.addEventListener('click', () => {
+// ** Sorteerfunctie **
+document.querySelectorAll("th").forEach((th, index) => {
+    th.addEventListener("click", () => sortTable(index));
+});
+
+function sortTable(columnIndex) {
+    const keyMap = ["adres_nl", null, "adres_nl", "code_postal", "gemeente", null]; // De relevante kolommen
+    const key = keyMap[columnIndex];
+
+    if (!key) return; // Niet sorteren als er geen relevante key is
+
+    currentSort.ascending = currentSort.column === columnIndex ? !currentSort.ascending : true;
+    currentSort.column = columnIndex;
+
+    allRecords.sort((a, b) => {
+        let valA = a[key] || "";
+        let valB = b[key] || "";
+
+        if (!isNaN(valA) && !isNaN(valB)) {
+            valA = Number(valA);
+            valB = Number(valB);
+        }
+
+        return currentSort.ascending ? valA > valB ? 1 : -1 : valA < valB ? 1 : -1;
+    });
+
+    updateTableHeaders(columnIndex);
+    displayData(allRecords);
+}
+
+// ** Update sorteerpijlen in de headers **
+function updateTableHeaders(sortedIndex) {
+    document.querySelectorAll("th").forEach((th, index) => {
+        if (index === sortedIndex) {
+            th.innerHTML = th.innerText.replace(/ ▲| ▼/g, '') + (currentSort.ascending ? " ▲" : " ▼");
+        } else {
+            th.innerHTML = th.innerText.replace(/ ▲| ▼/g, '');
+        }
+    });
+}
+
+// ** Thema wisselen **
+document.getElementById('themeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-theme');
 });

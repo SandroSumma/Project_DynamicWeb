@@ -61,7 +61,7 @@ table {
     height: 400px;
 }
 
-/* 📱 Responsiviteit voor kleinere schermen */
+/* Responsiviteit voor kleinere schermen */
 @media (max-width: 768px) {
     main {
         flex-direction: column; /* Zet tabel en kaart onder elkaar */
