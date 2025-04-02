@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brussels Explorer</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1>Brussels Explorer</h1>
+        <input type="text" id="search" placeholder="Zoek naar een locatie...">
+        <select id="filterType">
+            <option value="all">Alle typen</option>
+            <option value="drinkfontein">Drinkfontein</option>
+        </select>
+        <button id="zoeken">Zoeken</button>
+        <button id="themeToggle">Thema wisselen</button>
+    </header>
+    
+    <main>
+        <div id="map"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Type</th>
+                    <th>Adres</th>
+                    <th>Datum</th>
+                    <th>Beschrijving</th>
+                    <th>Acties</th>
+                </tr>
+            </thead>
+            <tbody id="locationsTable">
+            </tbody>
+        </table>
+    </main>
+    
+    <script src="index.js"></script>
+</body>
+</html>
