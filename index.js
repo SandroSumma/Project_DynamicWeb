@@ -64,6 +64,13 @@ searchBtn.addEventListener('click', () => {
     filterData(searchTerm);
 });
 
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('keydown', (event) => {
+    if(event.key !== 'Enter') return;
+    const searchTerm = document.getElementById('search').value.toLowerCase();
+    filterData(searchTerm);
+})
+
 // Filter de data op basis van zoekterm
 function filterData(searchTerm) {
     const filteredRecords = allRecords.filter(item => {
