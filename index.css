@@ -1,13 +1,13 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #eceff1, #cfd8dc);
     transition: background 0.3s, color 0.3s;
 }
 
 header {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
     color: white;
     text-align: center;
     padding: 20px;
@@ -15,69 +15,113 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    border-bottom: 3px solid #2E7D32;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header input, header select, header button {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
     font-size: 16px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 main {
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Zorgt ervoor dat de kaart en tabel bovenaan beginnen */
+    justify-content: flex-start; /* Zet de inhoud links uitgelijnd */
+    gap: 350px; /* Ruimte tussen tabel en kaart */
 }
 
+/* Tabel kleiner maken */
+.table-container {
+    width: 40%; /* Kleinere breedte */
+    max-width: 450px; /* Maximale breedte */
+}
+
+/* Tabel zelf */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
 }
 
+/* Kaart-container */
+.map-container {
+    width: 180%;
+    max-width: 600px;
+    align-self: flex-start;
+    
+}
+
+.map-container iframe {
+    width: 110%;
+    height: 400px;
+}
+
+/* 📱 Responsiviteit voor kleinere schermen */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column; /* Zet tabel en kaart onder elkaar */
+        align-items: center;
+    }
+
+    .table-container, .map-container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+
 table, th, td {
-    border: 1px solid #ddd;
+    border: none;
 }
 
 th, td {
-    padding: 10px;
+    padding: 15px;
     text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
+    background: #4CAF50;
+    color: white;
+    text-transform: uppercase;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #dcedc8;
+    transition: background 0.3s;
 }
 
 button {
-    padding: 8px 12px;
-    margin: 5px;
-    background-color: #4CAF50;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: background 0.3s ease;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background: #2E7D32;
+    transform: scale(1.05);
 }
 
 input {
-    padding: 8px;
-    width: 250px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 10px;
+    width: 280px;
+    border-radius: 8px;
     font-size: 16px;
+    border: 1px solid #ddd;
 }
-
-
 
 /* ⭐ Responsiviteit */
 @media (max-width: 768px) {
@@ -90,19 +134,20 @@ input {
     }
 }
 
+
 /* 🌙 Donkere modus */
 .dark-theme {
-    background: #222;
+    background: #121212;
     color: white;
 }
 
 .dark-theme table {
-    background: #333;
+    background: #1E1E1E;
     color: white;
 }
 
 .dark-theme th {
-    background: #444;
+    background: #333;
 }
 
 .dark-theme tr:nth-child(even) {
@@ -118,7 +163,7 @@ input {
 }
 
 .dark-theme input {
-    background: #444;
+    background: #333;
     color: white;
     border: 1px solid #777;
 }

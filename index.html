@@ -13,32 +13,36 @@
         <h1>Brussels Explorer</h1>
         <input type="text" id="search" placeholder="Zoek naar een locatie...">
         <button id="searchBtn">Zoeken</button>
-        <select id="filterType">
-            <option value="all">Alle typen</option>
-            <option value="drinkfontein">Drinkfontein</option>
-        </select>
         <button id="themeToggle">Thema wisselen</button>
-        
-
     </header>
 
     <main>
-        <div id="map"></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Naam</th>
-                    <th>Type</th>
-                    <th>Adres</th>
-                    <th>Postcode</th>
-                    <th>Gemeente</th>
-                    <th>Acties</th>
-                </tr>
-            </thead>
-            <tbody id="locationsTable">
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Type</th>
+                        <th>Adres</th>
+                        <th>Postcode</th>
+                        <th>Gemeente</th>
+                        <th>Favorieten</th>
+                    </tr>
+                </thead>
+                <tbody id="locationsTable">
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="map-container">
+            <iframe
+                src="https://bruxellesdata.opendatasoft.com/explore/embed/dataset/fontaines-d-eau-potable-gerees-par-la-ville-de-bruxelles/map/?disjunctive.gemeente&disjunctive.code_postal&location=11,50.85754,4.39899&basemap=jawg.sunny&static=false&datasetcard=false&scrollWheelZoom=true"
+                height="400"
+                width="600">
+            </iframe>
+        </div>
     </main>
+    
 
     <script src="index.js"></script>
 </body>
