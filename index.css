@@ -77,6 +77,8 @@ input {
     font-size: 16px;
 }
 
+
+
 /* ⭐ Responsiviteit */
 @media (max-width: 768px) {
     header {
