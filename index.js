@@ -67,7 +67,13 @@ searchBtn.addEventListener('click', () => {
 // Filter de data op basis van zoekterm
 function filterData(searchTerm) {
     const filteredRecords = allRecords.filter(item => {
-        const matchesSearch = item.gemeente?.toLowerCase().includes(searchTerm) || false;
+        // Zoek naar de zoekterm in verschillende velden (adres, postcode, gemeente, etc.)
+        const matchesSearch = 
+            (item.adres_nl?.toLowerCase().includes(searchTerm) || false) ||
+            (item.code_postal?.toLowerCase().includes(searchTerm) || false) ||
+            (item.gemeente?.toLowerCase().includes(searchTerm) || false) ||
+            (item.adresse_fr?.toLowerCase().includes(searchTerm) || false); // Franse adres ook controleren
+
         return matchesSearch;
     });
 
