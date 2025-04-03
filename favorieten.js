@@ -1,24 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    displayFavorites();
+    displayFavorites(); // Weergave van favorieten bij het laden van de pagina
 });
 
 function displayFavorites() {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || []; // Haal de favorieten op uit localStorage
     const tableBody = document.getElementById("favoritesTable");
 
     if (!tableBody) {
-        console.error("Tabel-body voor favorieten niet gevonden!");
+        console.error("Tabel-body voor favorieten niet gevonden!"); // Foutmelding als de tabel-body niet gevonden wordt
         return;
     }
 
-    tableBody.innerHTML = ''; // Tabel resetten
+    tableBody.innerHTML = ''; // Reset de tabel
 
     // Als er geen favorieten zijn
     if (favorites.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6">Geen favorieten gevonden!</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="6">Geen favorieten gevonden!</td></tr>`; // Toon melding als er geen favorieten zijn
         return;
     }
 
+    // Voeg alle favorieten toe aan de tabel
     favorites.forEach(item => {
         const row = document.createElement("tr");
 
@@ -34,10 +35,10 @@ function displayFavorites() {
         tableBody.appendChild(row);
     });
 
-    // Verwijderknop activeren
+    // Voeg event listener toe aan de verwijderknoppen
     document.querySelectorAll(".remove-btn").forEach(button => {
         button.addEventListener("click", (event) => {
-            const locatie = event.target.dataset.id;
+            const locatie = event.target.dataset.id; // Verkrijg het id van de verwijderde locatie
 
             // Verkrijg de huidige lijst van favorieten
             let favorieten = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -48,8 +49,8 @@ function displayFavorites() {
             // Werk de localStorage bij met de nieuwe lijst
             localStorage.setItem("favorites", JSON.stringify(nieuweFavorieten));
 
-            // Werk de weergave bij
-            displayFavorites();  // Roep displayFavorites opnieuw aan om de tabel bij te werken
+            // Roep displayFavorites opnieuw aan om de tabel bij te werken
+            displayFavorites();
         });
     });
 }
@@ -61,4 +62,3 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add('dark-theme'); // Pas het donkere thema toe
     }
 });
-

@@ -2,15 +2,18 @@
 <html lang="nl">
 
 <head>
+    <!-- Zet de tekencodering en viewport-instellingen voor mobiele apparaten -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brussels Explorer</title>
+    <!-- Verbind de externe CSS voor stijlen -->
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <header>
         <h1>Brussels Explorer</h1>
+        <!-- Zoekbalk en thema-toggle knop -->
         <div class="search-container">
             <input type="text" id="search" placeholder="Zoek een locatie...">
             <button id="searchBtn">Zoeken</button>
@@ -19,6 +22,7 @@
     </header>
 
     <main>
+        <!-- Tabel voor het weergeven van locaties -->
         <section class="table-container">
             <table>
                 <thead>
@@ -32,21 +36,24 @@
                     </tr>
                 </thead>
                 <tbody id="locationsTable">
-                    <!-- Dynamische inhoud komt hier -->
+                    <!-- Dynamische inhoud van locaties komt hier -->
                 </tbody>
             </table>
         </section>
 
+        <!-- Kaartweergave -->
         <section class="map-container">
             <iframe
                 src="https://bruxellesdata.opendatasoft.com/explore/embed/dataset/fontaines-d-eau-potable-gerees-par-la-ville-de-bruxelles/map/?disjunctive.gemeente&disjunctive.code_postal&location=11,50.85754,4.39899&basemap=jawg.sunny&static=false&datasetcard=false&scrollWheelZoom=true"
                 frameborder="0"
                 allowfullscreen>
             </iframe>
+            <!-- Button om favorieten te bekijken -->
             <button id="viewFavorites">Bekijk Favorieten</button>
         </section>
     </main>
 
+    <!-- Verbind de externe JavaScript voor interactie en dynamische inhoud -->
     <script src="index.js"></script>
 </body>
 

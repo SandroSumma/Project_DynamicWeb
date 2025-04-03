@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
+    fetchData(); // Haal de data op zodra de pagina geladen is
 });
 
 let allRecords = []; // Bewaar de originele records voor sorteren
@@ -20,12 +20,12 @@ async function fetchData() {
 
         if (data.results && data.results.length > 0) {
             allRecords = data.results;
-            displayData(allRecords);
+            displayData(allRecords); // Toon de data in de tabel
         } else {
             console.warn("Geen records gevonden in de API-response!");
         }
     } catch (error) {
-        console.error("Fout bij ophalen van data:", error);
+        console.error("Fout bij ophalen van data:", error); // Error handling
     }
 }
 
@@ -38,7 +38,7 @@ function displayData(records) {
         return;
     }
 
-    tableBody.innerHTML = ''; // Tabel resetten
+    tableBody.innerHTML = ''; // Reset de tabel
 
     records.forEach(item => {
         const row = document.createElement("tr");
@@ -54,31 +54,30 @@ function displayData(records) {
             </td>
         `;
 
-        tableBody.appendChild(row);
+        tableBody.appendChild(row); // Voeg de rij toe aan de tabel
     });
 
-    // Favorieten-knoppen activeren
+    // Voeg event listeners toe aan favorietenknoppen
     document.querySelectorAll(".fav-btn").forEach(button => {
         button.addEventListener("click", (event) => {
             const locatie = event.target.dataset.id;
             let favorieten = JSON.parse(localStorage.getItem("favorites")) || [];
 
             if (!favorieten.some(item => item.adres_nl === locatie)) {
-                // Voeg object toe aan favorieten
                 const locatieObject = records.find(item => item.adres_nl === locatie);
                 if (locatieObject) {
-                    favorieten.push(locatieObject); // Voeg het hele object toe
+                    favorieten.push(locatieObject); // Voeg object toe aan favorieten
                     localStorage.setItem("favorites", JSON.stringify(favorieten));
                     alert("Toegevoegd aan favorieten!");
                 }
             } else {
-                alert("Deze locatie staat al in je favorieten!");
+                alert("Deze locatie staat al in je favorieten!"); // Indien al favoriet
             }
         });
     });
 }
 
-// Voeg event listeners toe aan de zoekknop en inputveld
+// Voeg event listeners toe aan zoekknop en inputveld
 document.getElementById('searchBtn').addEventListener('click', () => {
     filterData(document.getElementById('search').value.toLowerCase());
 });
@@ -98,42 +97,19 @@ function filterData(searchTerm) {
         (item.adresse_fr?.toLowerCase().includes(searchTerm) || false)
     );
 
-    displayData(filteredRecords);
+    displayData(filteredRecords); // Toon gefilterde data
 }
 
-// Voeg event listeners toe aan de zoekknop en inputveld
-document.getElementById('searchBtn').addEventListener('click', () => {
-    filterData(document.getElementById('search').value.toLowerCase());
-});
-
-document.getElementById('search').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        filterData(event.target.value.toLowerCase());
-    }
-});
-
-// Filter functie
-function filterData(searchTerm) {
-    const filteredRecords = allRecords.filter(item => 
-        (item.adres_nl?.toLowerCase().includes(searchTerm) || false) ||
-        (item.code_postal?.toLowerCase().includes(searchTerm) || false) ||
-        (item.gemeente?.toLowerCase().includes(searchTerm) || false) ||
-        (item.adresse_fr?.toLowerCase().includes(searchTerm) || false)
-    );
-
-    displayData(filteredRecords);
-}
-
-// ** Sorteerfunctie **
+// ** Sorteerfunctie ** 
 document.querySelectorAll("th").forEach((th, index) => {
-    th.addEventListener("click", () => sortTable(index));
+    th.addEventListener("click", () => sortTable(index)); // Voeg sorteerfunctie toe aan headers
 });
 
 function sortTable(columnIndex) {
-    const keyMap = ["adres_nl", null, "adres_nl", "code_postal", "gemeente", null]; // De relevante kolommen
+    const keyMap = ["adres_nl", null, "adres_nl", "code_postal", "gemeente", null]; // Kolommen voor sorteren
     const key = keyMap[columnIndex];
 
-    if (!key) return; // Niet sorteren als er geen relevante key is
+    if (!key) return; // Geen sortering als geen relevante key
 
     currentSort.ascending = currentSort.column === columnIndex ? !currentSort.ascending : true;
     currentSort.column = columnIndex;
@@ -150,8 +126,8 @@ function sortTable(columnIndex) {
         return currentSort.ascending ? valA > valB ? 1 : -1 : valA < valB ? 1 : -1;
     });
 
-    updateTableHeaders(columnIndex);
-    displayData(allRecords);
+    updateTableHeaders(columnIndex); // Update de sorteerpijlen
+    displayData(allRecords); // Toon gesorteerde data
 }
 
 // ** Update sorteerpijlen in de headers **
@@ -167,24 +143,21 @@ function updateTableHeaders(sortedIndex) {
 
 // ** Thema wisselen met persistentie **
 document.getElementById('themeToggle').addEventListener('click', () => {
-    // Toggle de dark-theme class op de body
-    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('dark-theme'); // Toggle de dark-theme class
 
-    // Sla het huidige thema op in localStorage (true voor donker, false voor licht)
     const isDarkMode = document.body.classList.contains('dark-theme');
-    localStorage.setItem('darkMode', isDarkMode);
+    localStorage.setItem('darkMode', isDarkMode); // Sla het thema op in localStorage
 });
 
 // ** Bij het laden van de pagina, check of donker thema is opgeslagen **
 document.addEventListener("DOMContentLoaded", () => {
-    const darkMode = localStorage.getItem('darkMode') === 'true'; // Haal de waarde op uit localStorage
+    const darkMode = localStorage.getItem('darkMode') === 'true'; // Haal waarde uit localStorage
     if (darkMode) {
-        document.body.classList.add('dark-theme'); // Pas het donkere thema toe
+        document.body.classList.add('dark-theme'); // Pas donker thema toe
     }
 });
 
-
 // ** Favorietenpagina openen **
 document.getElementById("viewFavorites").addEventListener("click", () => {
-    window.location.href = "favorieten.html";
+    window.location.href = "favorieten.html"; // Navigeer naar favorieten pagina
 });
