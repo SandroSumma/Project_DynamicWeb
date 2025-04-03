@@ -56,6 +56,49 @@ function displayData(records) {
 
         tableBody.appendChild(row);
     });
+
+    // Favorieten-knoppen activeren
+    document.querySelectorAll(".fav-btn").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const locatie = event.target.dataset.id;
+            let favorieten = JSON.parse(localStorage.getItem("favorites")) || [];
+
+            if (!favorieten.some(item => item.adres_nl === locatie)) {
+                // Voeg object toe aan favorieten
+                const locatieObject = records.find(item => item.adres_nl === locatie);
+                if (locatieObject) {
+                    favorieten.push(locatieObject); // Voeg het hele object toe
+                    localStorage.setItem("favorites", JSON.stringify(favorieten));
+                    alert("Toegevoegd aan favorieten!");
+                }
+            } else {
+                alert("Deze locatie staat al in je favorieten!");
+            }
+        });
+    });
+}
+
+// Voeg event listeners toe aan de zoekknop en inputveld
+document.getElementById('searchBtn').addEventListener('click', () => {
+    filterData(document.getElementById('search').value.toLowerCase());
+});
+
+document.getElementById('search').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        filterData(event.target.value.toLowerCase());
+    }
+});
+
+// Filter functie
+function filterData(searchTerm) {
+    const filteredRecords = allRecords.filter(item => 
+        (item.adres_nl?.toLowerCase().includes(searchTerm) || false) ||
+        (item.code_postal?.toLowerCase().includes(searchTerm) || false) ||
+        (item.gemeente?.toLowerCase().includes(searchTerm) || false) ||
+        (item.adresse_fr?.toLowerCase().includes(searchTerm) || false)
+    );
+
+    displayData(filteredRecords);
 }
 
 // Voeg event listeners toe aan de zoekknop en inputveld
@@ -125,4 +168,9 @@ function updateTableHeaders(sortedIndex) {
 // ** Thema wisselen **
 document.getElementById('themeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-theme');
+});
+
+// ** Favorietenpagina openen **
+document.getElementById("viewFavorites").addEventListener("click", () => {
+    window.location.href = "favorieten.html";
 });
