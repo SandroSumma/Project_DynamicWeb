@@ -76,6 +76,8 @@ thead {
     height: 400px;
 }
 
+
+
 /* Responsiviteit voor kleinere schermen */
 @media (max-width: 768px) {
     main {
