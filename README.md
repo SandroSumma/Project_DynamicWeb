@@ -68,7 +68,15 @@ Gebruiksvriendelijke elementen: De interface bevat gebruiksvriendelijke elemente
  
 Screenshots van de Applicatie
 Startpagina:
+![image](https://github.com/user-attachments/assets/931da6c1-12c8-4068-9f18-76dd4e129a65)
+Donker:
+![image](https://github.com/user-attachments/assets/4ab0027e-18ab-4e2f-a528-e4be38093835)
+
 Favorietenpagina:
+![image](https://github.com/user-attachments/assets/3656c9bf-c71a-4180-9256-def3e49fe017)
+Donker:
+![image](https://github.com/user-attachments/assets/8c49dd44-6481-48a8-af08-3a600a7b3743)
+
 Gebruikte Bronnen
 API: Fontaines d'eau potable - OpenDataSoft
 AI Assistent: ChatGPT.
