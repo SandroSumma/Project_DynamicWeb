@@ -2,62 +2,91 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #eceff1, #cfd8dc);
     transition: background 0.3s, color 0.3s;
+    background-image: url('Brussel.jpg'); /* Replace with your image path */
+    background-size: cover; /* Cover the entire viewport */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image */
 }
 
 header {
-    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    background: linear-gradient(135deg, #2196F3, #1976D2);
     color: white;
-    text-align: center;
-    padding: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    border-bottom: 3px solid #2E7D32;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 3px solid #1565C0;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-header input, header select, header button {
+.logo img {
+    height: 50px; /* Adjust as needed */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
     padding: 10px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.theme-toggle {
+    margin-left: auto; /* Pushes the theme toggle to the right */
+}
+
+.theme-toggle button {
+    padding: 10px 15px;
+    background-color: #f44336; /* Change theme button color */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.theme-toggle button:hover {
+    background-color: #d32f2f; /* Darker shade on hover */
 }
 
 main {
     padding: 20px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* Zorgt ervoor dat de kaart en tabel bovenaan beginnen */
-    justify-content: flex-start; /* Zet de inhoud links uitgelijnd */
-    gap: 350px; /* Ruimte tussen tabel en kaart */
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 350px;
 }
 
 /* Tabel kleiner maken */
 .table-container {
-    width: 40%; /* Kleinere breedte */
-    max-width: 450px; /* Maximale breedte */
+    width: 40%;
+    max-width: 450px;
+    position: sticky; /* Make the container sticky */
+    
 }
 
 /* Tabel zelf */
 table {
     width: 100%;
+    border-collapse: collapse;
     font-size: 14px;
+    background: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
 }
 
 thead {
     position: sticky;
-    top: 0;
-    background: #4CAF50;
+    top: 100px; /* Stick the header to the top of the table container */
+    background: #2196F3; /* Background color for the sticky header */
     color: white;
-    top: 120px; /* Laat ruimte voor de header */
-    z-index: 1000;
+    z-index: 100; /* Ensure it stays above other content */
 }
 
 /* Kaart-container */
@@ -66,9 +95,8 @@ thead {
     max-width: 600px;
     align-self: flex-start;
     position: sticky;
-    top: 150px; /* Laat ruimte voor de header */
+    top: 150px;
     z-index: 500;
-    
 }
 
 .map-container iframe {
@@ -76,12 +104,10 @@ thead {
     height: 400px;
 }
 
-
-
 /* Responsiviteit voor kleinere schermen */
 @media (max-width: 768px) {
     main {
-        flex-direction: column; /* Zet tabel en kaart onder elkaar */
+        flex-direction: column;
         align-items: center;
     }
 
@@ -89,20 +115,24 @@ thead {
         width: 100%;
         max-width: none;
     }
-}
 
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
 table, th, td {
     border: none;
 }
 
 th, td {
-    padding: 15px;
+    padding: 12px;
     text-align: left;
 }
 
 th {
-    background: #4CAF50;
+    background: #2196F3;
     color: white;
     text-transform: uppercase;
 }
@@ -112,23 +142,23 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #dcedc8;
+    background-color: #e0e0e0;
     transition: background 0.3s;
 }
 
 button {
-    padding: 10px 15px;
-    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
     color: white;
     border: none;
-    cursor: pointer;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 16px;
+    cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background: #2E7D32;
+    background: #0056b3;
     transform: scale(1.05);
 }
 
@@ -137,29 +167,20 @@ input {
     width: 280px;
     border-radius: 8px;
     font-size: 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #90caf9;
 }
 
 /* Responsiviteit */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
     table {
         font-size: 14px;
     }
 }
 
-
 /* Donkere modus */
-.dark-theme {
-    background: #121212;
-    color: white;
-}
 
 .dark-theme table {
-    background: #1E1E1E;
+    background: #4b4b4b;
     color: white;
 }
 

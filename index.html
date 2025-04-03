@@ -11,13 +11,15 @@
 <body>
     <header>
         <h1>Brussels Explorer</h1>
-        <input type="text" id="search" placeholder="Zoek naar een locatie...">
-        <button id="searchBtn">Zoeken</button>
-        <button id="themeToggle">Thema wisselen</button>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Zoek een locatie...">
+            <button id="searchBtn">Zoeken</button>
+            <button id="themeToggle">🌙 / ☀️</button>
+        </div>
     </header>
 
     <main>
-        <div class="table-container">
+        <section class="table-container">
             <table>
                 <thead>
                     <tr>
@@ -26,24 +28,23 @@
                         <th>Adres</th>
                         <th>Postcode</th>
                         <th>Gemeente</th>
-                        <th>Favorieten</th>
+                        <th>Favoriet</th>
                     </tr>
                 </thead>
                 <tbody id="locationsTable">
+                    <!-- Dynamische inhoud komt hier -->
                 </tbody>
             </table>
-        </div>
-    
-        <div class="map-container">
+        </section>
+
+        <section class="map-container">
             <iframe
                 src="https://bruxellesdata.opendatasoft.com/explore/embed/dataset/fontaines-d-eau-potable-gerees-par-la-ville-de-bruxelles/map/?disjunctive.gemeente&disjunctive.code_postal&location=11,50.85754,4.39899&basemap=jawg.sunny&static=false&datasetcard=false&scrollWheelZoom=true"
-                height="400"
-                width="600">
+                frameborder="0"
+                allowfullscreen>
             </iframe>
-            <button id="viewFavorites">Favorieten bekijken</button>
-        </div>
-
-
+            <button id="viewFavorites">Bekijk Favorieten</button>
+        </section>
     </main>
 
     <script src="index.js"></script>
