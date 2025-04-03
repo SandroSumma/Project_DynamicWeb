@@ -53,3 +53,12 @@ function displayFavorites() {
         });
     });
 }
+
+// ** Bij het laden van de pagina, check of donker thema is opgeslagen **
+document.addEventListener("DOMContentLoaded", () => {
+    const darkMode = localStorage.getItem('darkMode') === 'true'; // Haal de waarde op uit localStorage
+    if (darkMode) {
+        document.body.classList.add('dark-theme'); // Pas het donkere thema toe
+    }
+});
+

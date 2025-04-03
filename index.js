@@ -165,10 +165,24 @@ function updateTableHeaders(sortedIndex) {
     });
 }
 
-// ** Thema wisselen **
+// ** Thema wisselen met persistentie **
 document.getElementById('themeToggle').addEventListener('click', () => {
+    // Toggle de dark-theme class op de body
     document.body.classList.toggle('dark-theme');
+
+    // Sla het huidige thema op in localStorage (true voor donker, false voor licht)
+    const isDarkMode = document.body.classList.contains('dark-theme');
+    localStorage.setItem('darkMode', isDarkMode);
 });
+
+// ** Bij het laden van de pagina, check of donker thema is opgeslagen **
+document.addEventListener("DOMContentLoaded", () => {
+    const darkMode = localStorage.getItem('darkMode') === 'true'; // Haal de waarde op uit localStorage
+    if (darkMode) {
+        document.body.classList.add('dark-theme'); // Pas het donkere thema toe
+    }
+});
+
 
 // ** Favorietenpagina openen **
 document.getElementById("viewFavorites").addEventListener("click", () => {
